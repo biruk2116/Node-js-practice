@@ -1,0 +1,21 @@
+{
+  "name": "node-js-practice",
+  "version": "1.0.0",
+  "description": "practicing with node.js in the backend",
+  "homepage": "https://github.com/biruk2116/Node-js-practice#readme",
+  "bugs": {
+    "url": "https://github.com/biruk2116/Node-js-practice/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/biruk2116/Node-js-practice.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  }
+}
