@@ -1,13 +1,14 @@
 import mongoose, { Schema } from "mongoose";
-import bycrypt from "bcrypt";
+import bcrypt from "bcrypt";
+
 const userSchema = new Schema(
   {
     username: {
       type: String,
       required: true,
       unique: true,
-      minLength: 1,
-      maxLength: 30,
+      minlength: 1,
+      maxlength: 30,
       lowercase: true,
       trim: true,
     },
@@ -23,8 +24,8 @@ const userSchema = new Schema(
     password: {
       type: String,
       required: true,
-      minLength: 6,
-      maxLength: 50,
+      minlength: 6,
+      maxlength: 50,
     },
   },
   {
@@ -32,22 +33,18 @@ const userSchema = new Schema(
   }
 );
 
-
-
- //before saving any password to the database we will hash it using bcrypt
-
+// 🔐 HASH PASSWORD BEFORE SAVE
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    return next();
-    this.password = await bycrypt.hash(this.password, 10);
+  if (!this.isModified("password")) return next();
 
-    next();
-  });
+  this.password = await bcrypt.hash(this.password, 10);
+  next();
+});
 
-
-// compare passwords
-
-userSchema.methods.comparePassword = async function (Password) {
-  return await bycrypt.compare(Password, this.password);
+// 🔐 COMPARE PASSWORD
+userSchema.methods.comparePassword = async function (password) {
+  return await bcrypt.compare(password, this.password);
 };
-export const User = mongoose.model("User", userSchema);
+
+const User = mongoose.model("User", userSchema);
+export default User;
