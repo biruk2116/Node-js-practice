@@ -14,14 +14,18 @@ app.use("/api/v1/users", userRouter);
 
 const startServer = async () => {
   try {
+    console.log("1 - Starting server");
+
     await connectDB();
+    console.log("2 - DB connected");
 
     app.listen(process.env.PORT || 8000, () => {
-      console.log("Server running");
+      console.log(`3 - Server running on port ${process.env.PORT || 8000}`);
     });
 
   } catch (error) {
-    console.error(error);
+    console.error("Startup error:", error);
+    process.exit(1);
   }
 };
 
