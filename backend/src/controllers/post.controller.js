@@ -34,5 +34,17 @@ const createPost = async (req, res) => {
 
 // read all post
 
-const getPosts = asyc (req, res) => {
-export { createPost };
+const getPosts = async (req, res) => {
+    try {
+        const getPosts = await Post.find();
+        res.status(200).json(getPosts);
+    } catch (error) {
+        console.error("🔥 GET POSTS ERROR:", error);
+        res.status(500).json({ 
+            message: "Server error",
+            error: error.message 
+        });
+    }
+};
+
+export { createPost, getPosts };
