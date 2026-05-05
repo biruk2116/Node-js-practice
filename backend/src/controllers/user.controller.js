@@ -74,21 +74,28 @@ const loginUser = async (req, res) => {
   }
 };
 
-const logoutUser = (req, res) => {
+const logoutUser = async (req, res) => {
   try {
     const { email } = req.body;
-    const user = await User.findOne({ 
-      email: });
 
-      if (!user) {
-        return res.status(404).json({ message: "User not found" });
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
 
-        res.status(200).json({ message: "Logout successful" });
-      }
+    const normalizedEmail = email.toLowerCase().trim();
 
-       } catch (error) {
+    const user = await User.findOne({ email: normalizedEmail });
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // No real logout logic here (just simulation)
+    res.status(200).json({ message: "Logout successful" });
+
+  } catch (error) {
     console.error("Logout error:", error);
     res.status(500).json({ message: "Server error" });
   }
-}
-export { registerUser, loginUser };
+};
+export { registerUser, loginUser,logoutUser };
