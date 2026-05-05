@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import connectDB from "./config/database.js";
 import userRouter from "./route/user.route.js";
+import postRoutes from "./route/post.route.js"; // ✅ ADD THIS
 
 dotenv.config();
 
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // routes
 app.use("/api/v1/users", userRouter);
+app.use("/api/v1/posts", postRoutes); // ✅ ADD THIS
 
 const startServer = async () => {
   try {
