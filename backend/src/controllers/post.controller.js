@@ -47,4 +47,25 @@ const getPosts = async (req, res) => {
     }
 };
 
+// update post
+
+const updatePost = async (req, res) => {
+    try {
+        //   try validation
+
+        if(object.keys(req.body).length === 0){
+            return res.status(400).json({
+                message: "At least one field is required to update"
+            });
+        }
+    }
+    catch(error) {
+        console.error("🔥 UPDATE POST ERROR:", error);
+        res.status(500).json({  
+            message: "Server error",
+            error: error.message 
+        });
+    }
+   
+
 export { createPost, getPosts };
