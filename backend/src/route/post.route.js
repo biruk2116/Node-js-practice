@@ -4,6 +4,6 @@ import {createPost} from '../controllers/post.controller.js';
 
 const router = Router();
 
-router.post('/', createPost);
+router.post('/create', createPost);
 
 export default router;  
