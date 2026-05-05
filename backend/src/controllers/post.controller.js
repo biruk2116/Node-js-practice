@@ -55,9 +55,20 @@ const updatePost = async (req, res) => {
 
         if(object.keys(req.body).length === 0){
             return res.status(400).json({
-                message: "At least one field is required to update"
+                message: "No data provided for update"
             });
         }
+
+        const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+        if (!post) {
+            return res.status(404).json({
+                message: "Post not found"
+            });
+        }
+        res.status(200).json({
+            message: "Post updated successfully",
+            data: post
+        });
     }
     catch(error) {
         console.error("🔥 UPDATE POST ERROR:", error);
